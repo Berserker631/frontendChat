@@ -1,0 +1,39 @@
+<div class="globalContainer" [class.active]="alarm">
+  <nav class="navBar">
+    <div class="userStatus">
+      <h2>{{wordBreaker(currentSession,15)}}</h2>
+      <i id="status" class="statusDot">●</i>
+    </div>
+    <div class="openChats">
+      <app-openned-chats [Users]="opennedChats" (selectedUser)="selectUser($event)"></app-openned-chats>
+    </div>
+    <i class="fa-solid fa-ellipsis-vertical" (click)="openModal()">
+      <app-menu-modal [isOpen]="modalMenu"></app-menu-modal>
+    </i>
+  </nav>
+
+  <div class="container">
+    <div class="userBox" [class.active]="showChat">
+      <div class="searchContainer">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input [(ngModel)]="searchTerm" placeholder="Search" class="searchBar" [class.active]="showChat">
+      </div>
+      <ul class="userList">
+        <li class="user" *ngFor="let user of listUser | filter:searchTerm" (click)="selectUser(user)"
+          title={{user.UserName}}>
+          <div class="profilePic">
+            <img *ngIf="user.Type === 1" src="../assets/img/profile.webp" alt="icon" class="profile">
+            <img *ngIf="user.Type === 2" src="../assets/img/chatRoom.png" alt="icon" class="profile">
+          </div>
+          <h4>{{wordBreaker(user.UserName, 20)}}</h4>
+          <p>activo</p>
+        </li>
+      </ul>
+    </div>
+    <div class="subContainer" [class.active]="showChat">
+      <div class="chatContainer">
+        <app-history-chat [selectedUser]="selectedUser" [chatActive]="chatActive"></app-history-chat>
+      </div>
+    </div>
+  </div>
+</div>

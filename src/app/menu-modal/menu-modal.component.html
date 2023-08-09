@@ -1,0 +1,9 @@
+<div class="modal" [ngClass]="{'is-open': isOpen}">
+  <div class="modalContent">
+    <ul class="optList">
+      <li class="optModal" (click)="logOut($event)"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</li>
+      <li class="optModal"><i class="fa-solid fa-gear"></i> Settings</li>
+    </ul>
+  </div>
+</div>
+<div class="overlay" [ngClass]="{'is-open': isOpen}" (click)="closeModal"></div>

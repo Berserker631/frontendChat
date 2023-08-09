@@ -1,0 +1,50 @@
+<div class="wrapper" [class.active]="showReg">
+  <div class="form-box login" [class.active]="showReg">
+    <h2>login</h2>
+    <form action="#" id="form">
+      <div class="input-box">
+        <span class="icon"><i class="fa-solid fa-user" style="color: #ffffff;"></i></span>
+        <input type="text" required #userName>
+        <label>Usuario</label>
+      </div>
+      <div class="input-box">
+        <span class="icon"><i class="fa-solid fa-lock"></i></span>
+        <input type="password" required #password>
+        <label>Contraseña</label>
+      </div>
+      <button type="submit" class="btnLogin" (click)="getData()">Acceder</button>
+      <div class="register">
+        <p> ¿No tienes cuenta?
+          <a class="register-link" (click)="switchRegister()">Registrarse</a>
+        </p>
+      </div>
+    </form>
+  </div>
+  <!-- Register -->
+  <div class="form-box register" [class.active]="showReg">
+    <h2>Registration</h2>
+    <form action="#" id="form">
+      <div class="input-box">
+        <span class="icon"><i class="fa-solid fa-user" style="color: #ffffff;"></i></span>
+        <input type="text" required #NameReg>
+        <label>Nombre</label>
+      </div>
+      <div class="input-box">
+        <span class="icon"><i class="fa-regular fa-envelope"></i></span>
+        <input type="text" required #userNameReg>
+        <label>Usuario</label>
+      </div>
+      <div class="input-box">
+        <span class="icon"><i class="fa-solid fa-lock"></i></span>
+        <input type="password" required #passwordReg>
+        <label>Contraseña</label>
+      </div>
+      <button type="submit" class="btnLogin" (click)="registerUser()">Registrarse</button>
+      <div class="register">
+        <p> ¿Ya tienes cuenta?
+          <a href="#" class="register-link" (click)="switchRegister()">Iniciar Sesion</a>
+        </p>
+      </div>
+    </form>
+  </div>
+</div>

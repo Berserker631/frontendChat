@@ -1,0 +1,47 @@
+<nav class="navBar">
+  <div class="profile">
+    <div class="profilePic">
+      <img src="../../assets/img/profile.webp" alt="profile" class="pic">
+    </div>
+    <h3>User Name</h3>
+  </div>
+  <div class="navigation">
+    <input type="text" class="search" placeholder="search" [class.active]="searchBar" [(ngModel)]="searchTerm">
+    <i class="fa-solid fa-magnifying-glass" (click)="toggleSearch()"></i>
+    <i class="fa-solid fa-ellipsis-vertical"></i>
+  </div>
+</nav>
+
+<div class="chat">
+  <div class="headerNav">
+    <button (click)="changeMenu()">Recent</button>
+    <button class="users" (click)="changeMenu()">Users</button>
+    <button (click)="changeMenu()">ChatRooms #</button>
+  </div>
+  <div class="container">
+    <div class="recent">
+
+    </div>
+    <div class="users">
+      <div class="card" (click)="selectConversation(user)" *ngFor="let user of Users | filter:searchTerm">
+        <div class="picBox">
+          <img *ngIf="user.Type === 1" src="../assets/img/profile.webp" alt="icon" class="profile">
+          <img *ngIf="user.Type === 2" src="../assets/img/chatRoom.png" alt="icon" class="profile">
+        </div>
+        <div class="messageInfo">
+          <h4>{{user.UserName}}</h4>
+          <p>{{user.Status}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="chatRooms">
+
+    </div>
+
+  </div>
+
+  <div class="conversation" [class.active]="showConversation">
+    <app-history-chat [conversation]="conversation" [selectedUser]="selectedUser"
+      [chatActive]="chatActive"></app-history-chat>
+  </div>
+</div>

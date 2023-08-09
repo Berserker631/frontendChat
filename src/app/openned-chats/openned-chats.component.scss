@@ -1,0 +1,98 @@
+div.bubbleChats {
+  position: relative;
+  height: 60px;
+  display: inline-block;
+  user-select: none;
+
+
+  p {
+    width: 50px;
+    text-align: center;
+    font-size: 10px;
+    height: 10px;
+    line-height: 10px;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+}
+
+
+@keyframes bubble {
+  0% {
+    transform: scale(0);
+  }
+
+  70% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.profileBox {
+  animation: fadeIn .5s;
+}
+
+.profileBox {
+  padding-top: 2px;
+  position: relative;
+  display: block;
+  align-items: center;
+  justify-content: center;
+  // vertical-align: top;
+  margin-right: 6px;
+  cursor: pointer;
+  overflow: hidden;
+  text-decoration: none;
+  animation-name: bubble;
+  width: 60px;
+  height: 60px;
+
+  img {
+    margin: 0;
+    border-radius: 50%;
+    height: 45px;
+  }
+
+}
+
+#notification {
+  position: absolute;
+  top: 1px;
+  right: 2px;
+  padding: 0;
+  border-radius: 50%;
+  line-height: 15px;
+  width: 15px;
+  height: 15px;
+  text-align: center;
+  font-style: normal;
+  font-weight: bold;
+  font-family: 'Roboto', sans-serif;
+  opacity: 0;
+
+  &:hover {
+    color: #ff3c00;
+    cursor: pointer;
+    opacity: 1;
+  }
+}
+
+.counter {
+  position: absolute;
+  top: 1px;
+  right: 2px;
+  padding: 0;
+  border-radius: 50%;
+  line-height: 15px;
+  width: 15px;
+  height: 15px;
+  background-color: #ff3c00;
+  z-index: 99;
+  color: #fff !important;
+  // opacity: 1 !important;
+}

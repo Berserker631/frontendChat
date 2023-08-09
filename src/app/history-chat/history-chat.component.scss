@@ -1,0 +1,257 @@
+.container{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 60px repeat(3, 1fr) 25px 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  height: 100%;
+  transition: all ease-in-out .5s;
+
+  &.active{
+    grid-template-rows: 70px repeat(3, 1fr) 50px 1fr;
+  }
+}
+
+.userChat {
+  width: 100%;
+  grid-area: 1 / 1 / 2 / 2;
+  // height: 50px;
+  background-color: #161B22;
+  line-height: 50px;
+  padding-left: 10px;
+  color: #ECECF1;
+  border-bottom: solid 1px #30363D;
+  box-sizing: border-box;
+  h3 {
+    color: #cacaca;
+    font-size: 20px;
+  }
+}
+
+.userInfo {
+  display: inline;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.chat {
+  position: relative;
+  width: 100%;
+  // height: 70%;
+  grid-area: 2 / 1 / 5 / 2;
+  overflow-y: scroll;
+  background-color: #0D1117;
+  padding: 0 0 15px 0;
+
+}
+
+.typing {
+  width: 100%;
+  background-color: #0D1117;
+
+  p {
+    text-align: start;
+    margin: 0;
+    padding: 0;
+    color: #cacaca;
+    background-color: #0D1117;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    font-style: italic;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+}
+
+.icons {
+  display: flex;
+  bottom: 0;
+  justify-content: space-between;
+  width: 100%;
+  // border: solid 1px red;
+  box-sizing: border-box;
+  padding-left: 10px;
+  // height: 25px;
+  grid-area: 5 / 1 / 6 / 2;
+  margin: 0;
+  background-color: #0D1117;
+  transition: all ease-in-out .5s;
+
+  &.active{
+    background-color: #01213c;
+    align-items: center;
+    height: 50px;
+    border-left: solid 5px green;
+  }
+
+  i {
+    color: #939393;
+    margin: 5px;
+
+    &:hover {
+      cursor: pointer;
+      color: #fff;
+    }
+  }
+
+  .fa-triangle-exclamation:hover {
+    animation: alert 1s infinite;
+
+    @keyframes alert {
+      0% {
+        color: #fff;
+      }
+
+      50% {
+        color: #fd1e00;
+      }
+
+      100% {
+        color: #fff;
+      }
+    }
+  }
+
+}
+.replyContainer{
+  #answer{
+    display: block;
+    color: #cacaca;
+    font-size: 1em;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  #autor{
+    display: block;
+    color: #a5a5a5;
+    font-size: .8em;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+}
+
+.message {
+  grid-area: 6 / 1 / 7 / 2;
+  // height: 80px;
+  width: 100%;
+  background-color: #0D1117;
+  border-top: solid .5px #939393;
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+
+  .messageBody {
+    box-sizing: border-box;
+    background-color: #0D1117;
+    width: 100%;
+    // height: 100%;
+    color: #cacaca;
+    outline: none;
+    border: none;
+    font-size: large;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+}
+
+.message-list {
+  margin: 0;
+  padding: 15px;
+  list-style: none;
+
+  label {
+    color: #cacaca;
+    line-height: 28px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    padding-left: 5px;
+  }
+}
+
+.message1 {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row-reverse;
+  margin: 5px;
+
+  p {
+    display: block;
+    color: #fff;
+    word-break: break-all;
+    width: max-content;
+    max-width: 500px;
+    background-color: #33BBA4;
+    padding: 5px;
+    border-radius: 8px;
+    margin: 5px;
+    font-size: 1.2em;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .answerMsg{
+    box-sizing: border-box;
+    background-color: #2da883;
+    border-left: solid 5px #3385bb;
+    border-radius: 5px;
+    width: 100%;
+    display: block;
+    font-size: small;
+    margin: 2px;
+  }
+}
+
+.message2 {
+  display: flex;
+  justify-content: flex-start;
+  margin: 5px;
+
+  p {
+    color: #fff;
+    word-break: break-all;
+    width: max-content;
+    max-width: 500px;
+    background-color: #3385bb;
+    padding: 5px;
+    border-radius: 8px;
+    margin: 0;
+    font-size: 1.2em;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .answerMsg{
+    box-sizing: border-box;
+    background-color: #236794;
+    border-left: solid 5px #2da883;
+    border-radius: 5px;
+    width: 100%;
+    display: block;
+    font-size: small;
+    margin: 2px;
+  }
+}
+
+
+#pickerContainer {
+  z-index: 99;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+}
+
+#file {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+//replies messages
+.fa-solid.fa-reply{
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  margin-left: 5px;
+  margin-right: 5px;
+  // line-height: 30px;
+  cursor: pointer;
+}
+
+
+.TimeReceived{
+  display: flex;
+  align-items: center;
+}

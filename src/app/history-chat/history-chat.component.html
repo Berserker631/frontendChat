@@ -1,0 +1,35 @@
+<div class="container" [class.active]="replyingTo">
+  <div class="userChat">
+    <h3 class="userInfo">{{selectedUser?.UserName}}</h3>
+  </div>
+  <div class="chat" id="chatContainer">
+    <ul class="message-list" id="messages">
+      <li *ngFor="let message of conversation" [ngClass]="message.UserName == currentUser ?'message1': 'message2'">
+        <i class="fa-solid fa-reply" style="color: #c7c7c7;" (click)="replyTo(message.Message, message.UserName, message.MessageID)"></i>
+        <p class="msgText" *ngIf="message.IsAns != 0"><label class="answerMsg" id="">holo</label>{{message.Message}}</p>
+        <p *ngIf="message.IsAns === 0" class="msgText">{{message.Message}}</p>
+        <label class="TimeReceived">{{message.TimeReceived}}</label>
+      </li>
+    </ul>
+  </div>
+  <!-- <div class="typing">
+    <p id="typingUser"></p>
+  </div> -->
+  <div class="icons" [class.active]="replyingTo">
+    <div class="replyContainer" id="replyContainer">
+      <label id="autor"></label>
+      <label id="answer"></label>
+    </div>
+    <div>
+      <i class="fa-solid fa-triangle-exclamation" (click)="alarm()"></i>
+      <input type="file" id="file">
+      <label for="file"><i class="fa-regular fa-folder" id="icon" (click)="openFile()"></i></label>
+        <!-- (emoji)="setEmoji(EmojiSelection)"></i>  -->
+        <audio src="../../assets/sound/newMessage.mp3" id="notification"></audio>
+    </div>
+    </div>
+    <div class="message">
+  <textarea disabled={{!chatActive}} class="messageBody" (keypress)="typingEvent()" (keydown.enter)="addMessage($event)"
+    [(ngModel)]="newMessageText" id="messageBody"></textarea>
+</div>
+</div>
