@@ -6,7 +6,7 @@
     <ul class="message-list" id="messages">
       <li *ngFor="let message of conversation" [ngClass]="message.UserName == currentUser ?'message1': 'message2'">
         <i class="fa-solid fa-reply" style="color: #c7c7c7;" (click)="replyTo(message.Message, message.UserName, message.MessageID)"></i>
-        <p class="msgText" *ngIf="message.IsAns != 0"><label class="answerMsg" id="">holo</label>{{message.Message}}</p>
+        <p class="msgText" *ngIf="message.IsAns != 0"><label class="answerMsg" id="">{{message.AnswerTo}}</label>{{message.Message}}</p>
         <p *ngIf="message.IsAns === 0" class="msgText">{{message.Message}}</p>
         <label class="TimeReceived">{{message.TimeReceived}}</label>
       </li>

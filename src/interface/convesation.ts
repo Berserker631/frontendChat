@@ -1,5 +1,5 @@
 export interface Conversation {
-  SessionID: Number;
+  SessionID: number;
   Message: string;
   TimeReceived: string;
   MessageID: number;
@@ -8,4 +8,5 @@ export interface Conversation {
   UserID: number;
   TargetID: number,
   IsAns?: number,
+  AnswerTo?: string;
 }

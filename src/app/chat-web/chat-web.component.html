@@ -26,7 +26,7 @@
             <img *ngIf="user.Type === 2" src="../assets/img/chatRoom.png" alt="icon" class="profile">
           </div>
           <h4>{{wordBreaker(user.UserName, 20)}}</h4>
-          <p>activo</p>
+          <p *ngIf="user.UserID != currentID" ><i id="status" class="statusDot">●</i>activo</p>
         </li>
       </ul>
     </div>

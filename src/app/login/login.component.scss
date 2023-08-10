@@ -48,7 +48,6 @@
     transform: translateX(100%);
     width: 90%;
     padding: 40px;
-    transition: all ease-in-out .5s;
 
     h2 {
       font-size: 2em;
@@ -58,6 +57,7 @@
     }
 
     &.active {
+      transition: all ease-in-out .5s;
       box-sizing: border-box;
       transform: translateX(0);
     }

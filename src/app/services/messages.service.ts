@@ -11,7 +11,6 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
 };
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -38,7 +37,6 @@ export class MessagesService {
   }
 
   sendMessage(message: Conversation) {
-    console.log(message);
     return this.http.post(`${this.API}/sendMessage`, message)
   }
 
@@ -59,22 +57,23 @@ export class MessagesService {
   }
 
   // Sockets
-  joinRoomSocket(user: User) {
-    this.socket.emit('join', user)
+  joinRoomSocket() {
+    this.socket.emit('new-user-add', this.currentID)
+    this.socket.on('get-users', (users)=>{
+      console.log(users);
+  })
+  }
+
+  leaveRoom(userId: number){
+    this.socket.emit('offline', userId)
   }
 
   sendMessageSocket(message: Conversation) {
-    console.log();
     this.socket.emit('message', message)
-  }
-
-  sendNotification() {
-    this.socket.emit('sendNotification',)
   }
 
   receiveFileSocket() {
     this.socket.on('file', (data) => {
-      console.log('Recibido archivo:', data);
     });
   }
 
@@ -97,9 +96,10 @@ export class MessagesService {
 
   getAlarm() {
     this.socket.on('buzz', ($event) => {
-      console.log($event);
     })
   }
+
+
 
   getMessagesSocket(): Observable<Conversation> {
     return new Observable<Conversation>(Observer => {
