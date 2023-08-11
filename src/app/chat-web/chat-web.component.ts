@@ -4,6 +4,7 @@ import { Conversation } from 'src/interface/convesation';
 import { MessagesService } from "../services/messages.service";
 import { UsersService } from '../services/users.service';
 import { CookieService } from 'ngx-cookie-service';
+import { SocketsService } from '../services/sockets.service';
 
 @Component({
   selector: 'app-chat-web',
@@ -11,7 +12,6 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./chat-web.component.scss']
 })
 export class ChatWebComponent {
-
   status: boolean = true;
   selectedUser: User | null = null;
   currentSession: string = '';
@@ -26,14 +26,13 @@ export class ChatWebComponent {
   alarm: boolean = false;
   currentID!: number;
 
-  constructor(private messagesService: MessagesService, private usersService: UsersService, private cookieService: CookieService) {
+  constructor(private messagesService: MessagesService, private usersService: UsersService, private cookieService: CookieService, private socketService: SocketsService) {
     this.messagesService.clickEvent$.subscribe(() => {
       this.alarm = true
       setTimeout(() => {
         this.alarm = false;
       }, 3000);
     })
-
   }
 
   @ViewChild('messageList', { static: false }) messageList!: ElementRef;
@@ -46,15 +45,16 @@ export class ChatWebComponent {
       this.currentSession = this.listUser[index].UserName;
       this.listUser[index].UserName = 'Me'
     })
-
-    const statusIndicator = document.getElementById('status');
-    if (statusIndicator) {
-      if (this.status) {
-        statusIndicator.style.color = '#00e025';
-      } else {
-        statusIndicator.style.color = '#747272';
-      }
-    }
+    //get online users
+    this.socketService.onlineUser().subscribe((data: any) => {
+      this.listUser.forEach(user => {
+        if ( data.filter((x: any)=>  x.UserID == user.UserID).length>0) {
+          user.Status = true;
+        }else{
+          user.Status = false;
+        }
+      })
+    });
   }
 
   openModal() {

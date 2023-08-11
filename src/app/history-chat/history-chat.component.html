@@ -10,6 +10,7 @@
         <p *ngIf="message.IsAns === 0" class="msgText">{{message.Message}}</p>
         <label class="TimeReceived">{{message.TimeReceived}}</label>
       </li>
+      <div id="preview"></div>
     </ul>
   </div>
   <!-- <div class="typing">
@@ -25,7 +26,7 @@
       <input type="file" id="file">
       <label for="file"><i class="fa-regular fa-folder" id="icon" (click)="openFile()"></i></label>
         <!-- (emoji)="setEmoji(EmojiSelection)"></i>  -->
-        <audio src="../../assets/sound/newMessage.mp3" id="notification"></audio>
+        <audio src="../../assets/sound/newMessage.mp3" id="sound"></audio>
     </div>
     </div>
     <div class="message">

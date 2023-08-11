@@ -2,7 +2,7 @@
   <nav class="navBar">
     <div class="userStatus">
       <h2>{{wordBreaker(currentSession,15)}}</h2>
-      <i id="status" class="statusDot">●</i>
+      <i class="statusDotUser">●</i>
     </div>
     <div class="openChats">
       <app-openned-chats [Users]="opennedChats" (selectedUser)="selectUser($event)"></app-openned-chats>
@@ -26,7 +26,7 @@
             <img *ngIf="user.Type === 2" src="../assets/img/chatRoom.png" alt="icon" class="profile">
           </div>
           <h4>{{wordBreaker(user.UserName, 20)}}</h4>
-          <p *ngIf="user.UserID != currentID" ><i id="status" class="statusDot">●</i>activo</p>
+          <p *ngIf="user.UserID != currentID" >   <i id="status" class="statusDot" ngClass="{{ user.Status ? 'color-green': 'color-gris'  }}">●</i>   activo</p>
         </li>
       </ul>
     </div>

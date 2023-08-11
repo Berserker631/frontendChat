@@ -68,5 +68,7 @@ export class LoginComponent {
         }
       });
     }
+    this.user.password = null;
+    this.password.nativeElement.value = null;
   }
 }

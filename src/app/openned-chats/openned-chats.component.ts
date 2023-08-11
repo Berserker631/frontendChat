@@ -36,7 +36,6 @@ export class OpennedChatsComponent {
         user = this.Users[this.Users.length - 1]
       }
       else {
-        this.Users = []
       }
     }
     this.selectedUser.emit(user);
@@ -53,7 +52,6 @@ export class OpennedChatsComponent {
         newConversation.set(idSession, newConversation.get(idSession) + 1);
       }
     }
-
     this.unreadMessage = Array.from(newConversation, ([idSession, messageCounter]) => ({
       idSession,
       messageCounter

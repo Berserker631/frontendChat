@@ -1,8 +1,9 @@
-import { Component, HostListener, Input } from '@angular/core';
+import { Component,  Input } from '@angular/core';
 import { User } from 'src/interface/User';
 import { Conversation } from 'src/interface/convesation';
 import { MessagesService } from "src/app/services/messages.service";
 import { CookieService } from 'ngx-cookie-service';
+import { SocketsService } from '../services/sockets.service';
 
 @Component({
   selector: 'app-history-chat',
@@ -23,26 +24,28 @@ export class HistoryChatComponent {
   MessageID!: number;
   Answer!: string;
 
-
-  constructor(private messageService: MessagesService, private cookieService: CookieService) {
+  constructor(private messageService: MessagesService, private cookieService: CookieService, private socketsServices: SocketsService) {
     this.currentUser = this.cookieService.get('sessionCookies');
     this.UserID = parseInt(this.cookieService.get('LoginIDCookie'));
+    const notification = document.getElementById("sound") as HTMLAudioElement;
+    this.socketsServices.getMessagesSocket().subscribe
+      ((data) => {
+        if (this.selectedUser.Session === data.SessionID) {
+          this.conversation.push(data)
+          notification!.play()
+        }
+      })
   }
 
   ngOnInit() {
-    this.messageService.joinRoomSocket();
     this.messageService.getMessages(this.UserID).subscribe((data: Conversation[] | any) => {
       this.conversationAll = data;
     })
     this.typingUser();
-    const notification = document.getElementById("notification") as HTMLAudioElement;
-    this.messageService.getMessagesSocket().subscribe
-      ((data) => {
-        if (this.selectedUser.Session === data.SessionID) {
-          this.conversation.push(data)
-          notification!.play();
-        }
-      })
+  }
+
+  selectFile(e: any){
+
   }
 
   ngOnChanges() {
@@ -58,15 +61,13 @@ export class HistoryChatComponent {
     }
   }
 
-
-
   loadConversation() {
     this.messageService.getConversation(this.selectedUser.Session).subscribe((data: Conversation[] | any) => {
       this.conversation = data;
     })
-    // if (this.selectedUser && this.selectedUser != undefined && this.selectedUser != null) {
-    //   this.messageService.joinRoomSocket(this.selectedUser);
-    // }
+    if (this.selectedUser && this.selectedUser != undefined && this.selectedUser != null) {
+      this.socketsServices.joinRoomSocket(this.selectedUser);
+    }
   }
 
   alarm() {
@@ -78,18 +79,29 @@ export class HistoryChatComponent {
   }
 
   openFile() {
-    const file = document.getElementById('file');
-    file!.onchange = () => {
-      const selectedFile = (file as HTMLInputElement).files![0];
-      this.messageService.sendFileSocket(selectedFile)
+    document.addEventListener('DOMContentLoaded', () => {
+    const fileInput = document.getElementById('file') as HTMLInputElement;
+    const preview = document.getElementById('preview') as HTMLDivElement;
+
+    fileInput?.addEventListener('change', (event) => {
+      let selectedFile: any = new FormData();
+      selectedFile = (event.target as HTMLInputElement).files?.[0];
+
+      if (fileInput) {
+      const reader = new FileReader();
+
+      reader.onload = (event) =>{
+        const miniature = document.createElement('img');
+        miniature.src = event.target?.result as string;
+        miniature.style.maxWidth = '200px';
+        preview.innerHTML = '';
+        preview.appendChild(miniature);
+      }
+      reader.readAsDataURL(selectedFile)
     }
-    // this.messageService.receiveFileSocket().subscribe((data)=>{
-    // })
+  });
+  });
   }
-
-  fileChange($event: Event) { }
-
-  setEmoji() { }
 
   typingEvent() {  }
 
@@ -112,7 +124,8 @@ export class HistoryChatComponent {
           console.log(error);
         }
       });
-      this.messageService.sendMessageSocket(newMessage)
+
+      this.socketsServices.sendMessageSocket(newMessage)
       chatContainer?.scrollTo(0, document.body.scrollHeight)
       this.newMessageText = '';
       replyAutor.innerText = '';

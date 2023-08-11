@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 import { User } from 'src/interface/User';
 import { Conversation } from 'src/interface/convesation';
 import { environment } from "../environment/environment";
-import { Observable, Subject, every, of } from 'rxjs';
-import { io } from "socket.io-client";
+import { Subject } from 'rxjs';
 import { CookieService } from "ngx-cookie-service";
 
 const httpOptions = {
@@ -15,8 +14,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class MessagesService {
-  // socket = io("http://192.168.27.190:5000")
-  socket = io("http://localhost:5000")
+
   public conversation: Conversation[] = []
   public conversationAll: Conversation[] = []
   API = environment.endPoint;
@@ -55,61 +53,4 @@ export class MessagesService {
       }
     }
   }
-
-  // Sockets
-  joinRoomSocket() {
-    this.socket.emit('new-user-add', this.currentID)
-    this.socket.on('get-users', (users)=>{
-      console.log(users);
-  })
-  }
-
-  leaveRoom(userId: number){
-    this.socket.emit('offline', userId)
-  }
-
-  sendMessageSocket(message: Conversation) {
-    this.socket.emit('message', message)
-  }
-
-  receiveFileSocket() {
-    this.socket.on('file', (data) => {
-    });
-  }
-
-  sendFile() {
-    const inputFile = document.getElementById('file');
-    inputFile?.addEventListener('change', (event) => {
-      let file = (event.target as HTMLInputElement).files![0];
-      this.sendFileSocket(file)
-    })
-  }
-
-  sendFileSocket(file: any) {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const data = event.target?.result;
-      this.socket.emit('file', data);
-    };
-    reader.readAsDataURL(file);
-  }
-
-  getAlarm() {
-    this.socket.on('buzz', ($event) => {
-    })
-  }
-
-
-
-  getMessagesSocket(): Observable<Conversation> {
-    return new Observable<Conversation>(Observer => {
-      this.socket.on('new message', (data) => {
-        Observer.next(data)
-      });
-      return () => {
-        this.socket.disconnect();
-      }
-    });
-  }
-
 }
