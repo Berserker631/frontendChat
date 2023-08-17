@@ -20,13 +20,13 @@
       </div>
       <ul class="userList">
         <li class="user" *ngFor="let user of listUser | filter:searchTerm" (click)="selectUser(user)"
-          title={{user.UserName}}>
+          title={{user.userName}}>
           <div class="profilePic">
-            <img *ngIf="user.Type === 1" src="../assets/img/profile.webp" alt="icon" class="profile">
-            <img *ngIf="user.Type === 2" src="../assets/img/chatRoom.png" alt="icon" class="profile">
+            <img *ngIf="user.type === 1" src="../assets/img/profile.webp" alt="icon" class="profile">
+            <img *ngIf="user.type === 2" src="../assets/img/chatRoom.png" alt="icon" class="profile">
           </div>
-          <h4>{{wordBreaker(user.UserName, 20)}}</h4>
-          <p *ngIf="user.UserID != currentID" >   <i id="status" class="statusDot" ngClass="{{ user.Status ? 'color-green': 'color-gris'  }}">●</i>   activo</p>
+          <h4>{{wordBreaker(user.userName, 20)}}</h4>
+          <p *ngIf="user.UserID != currentID"><i id="status" class="statusDot" ngClass="{{ user.Status ? 'color-green': 'color-gris'  }}">●</i>activo</p>
         </li>
       </ul>
     </div>

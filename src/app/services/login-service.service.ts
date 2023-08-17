@@ -17,10 +17,7 @@ export class LoginServiceService {
     return this.http.post(`${this.API}/login`, user)
   }
 
-  registerUser(){
-
-  }
-
+  registerUser(){ }
 
   currentUser() {
     return this.http.post(`${this.API}/currentSession`, this.currentSession)

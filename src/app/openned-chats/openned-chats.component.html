@@ -1,12 +1,12 @@
 <div class="bubbleChats" *ngFor="let user of Users">
   <div class="profileBox" (click)="openBubble(user)">
-    <img *ngIf="user.Type === 1" src="../assets/img/profile.webp" alt="icon" class="profile">
-    <img *ngIf="user.Type === 2" src="../assets/img/chatRoom.png" alt="icon" class="profile">
+    <img *ngIf="user.type === 1" src="../assets/img/profile.webp" alt="icon" class="profile">
+    <img *ngIf="user.type === 2" src="../assets/img/chatRoom.png" alt="icon" class="profile">
     <ng-container *ngFor="let i of unreadMessage">
-      <span *ngIf="user.SessionID === i.idSession && i.messageCounter > 0">
+      <span *ngIf="user.idSession === i.idSession && i.messageCounter > 0">
         <i *ngIf="i.messageCounter > 0" id="notification" class="notification">{{i.messageCounter}}</i>
       </span>
-      <p class="userBubble">{{user.UserName}}</p>
+      <p class="userBubble">{{user.userName}}</p>
     </ng-container>
     <i id="notification" (click)="closeBubble(user)">X</i>
   </div>

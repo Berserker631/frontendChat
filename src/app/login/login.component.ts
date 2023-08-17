@@ -55,10 +55,11 @@ export class LoginComponent {
       this.user.userName = this.userName.nativeElement.value;
       this.user.password = this.password.nativeElement.value;
       this.loginService.getAccess(this.user).subscribe((data: any) => {
+        console.log(data);
         this.auth = data[0].existentUser;
         if (this.auth >= 0) {
-          this.cookieService.set('sessionCookies', data[0].UserName.toString())
-          this.cookieService.set('LoginIDCookie', data[0].LoginID.toString())
+          this.cookieService.set('sessionCookies', data[0].userName.toString())
+          this.cookieService.set('LoginIDCookie', data[0].idUser.toString())
           if (this.isMobile) {
             this.router.navigate(['chatMovil']);
           }

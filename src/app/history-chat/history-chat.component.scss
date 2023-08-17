@@ -176,6 +176,7 @@
     word-break: break-all;
     width: max-content;
     max-width: 500px;
+    min-width: 50px;
     background-color: #33BBA4;
     padding: 5px;
     border-radius: 8px;
@@ -206,6 +207,7 @@
     word-break: break-all;
     width: max-content;
     max-width: 500px;
+    min-width: 50px;
     background-color: #3385bb;
     padding: 5px;
     border-radius: 8px;
@@ -218,13 +220,13 @@
     background-color: #236794;
     border-left: solid 5px #2da883;
     border-radius: 5px;
+    max-width: 100px;
     width: 100%;
     display: block;
     font-size: small;
     margin: 2px;
   }
 }
-
 
 #pickerContainer {
   z-index: 99;
@@ -249,7 +251,6 @@
   // line-height: 30px;
   cursor: pointer;
 }
-
 
 .TimeReceived{
   display: flex;

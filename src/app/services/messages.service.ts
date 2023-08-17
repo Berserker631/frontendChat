@@ -48,7 +48,7 @@ export class MessagesService {
 
   updateConversationPerUser(selectedUser: User) {
     for (let i = 0; i < this.conversationAll.length; i++) {
-      if (selectedUser.SessionID === this.conversationAll[i].SessionID) {
+      if (selectedUser.idSession === this.conversationAll[i].SessionID) {
         this.conversationAll[i].ReadMsg = true;
       }
     }

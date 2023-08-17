@@ -40,18 +40,18 @@ export class ChatWebComponent {
   ngOnInit() {
     this.currentID = parseInt(this.cookieService.get('LoginIDCookie'), 10);
     this.usersService.getUsers(this.currentID).subscribe((data: User[] | any) => {
-      const index = data.findIndex((data: User) => data.UserID === this.currentID);
+      const index = data.findIndex((data: User) => data.idUser === this.currentID);
       this.listUser = data;
-      this.currentSession = this.listUser[index].UserName;
-      this.listUser[index].UserName = 'Me'
+      this.currentSession = this.listUser[index].userName;
+      this.listUser[index].userName = 'Me'
     })
     //get online users
     this.socketService.onlineUser().subscribe((data: any) => {
       this.listUser.forEach(user => {
-        if ( data.filter((x: any)=>  x.UserID == user.UserID).length>0) {
-          user.Status = true;
+        if ( data.filter((x: any)=>  x.UserID == user.idUser).length>0) {
+          user.status = true;
         }else{
-          user.Status = false;
+          user.status = false;
         }
       })
     });

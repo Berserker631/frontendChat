@@ -98,10 +98,10 @@ export class HistoryChatComponent {
         preview.appendChild(miniature);
       }
       reader.readAsDataURL(selectedFile)
+      }
+      });
+    });
     }
-  });
-  });
-  }
 
   typingEvent() {  }
 

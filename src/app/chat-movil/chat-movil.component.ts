@@ -49,7 +49,7 @@ export class ChatMovilComponent {
   changeMenu() { }
 
   selectConversation(user: User): void {
-    if (user.UserID != 0) {
+    if (user.idUser != 0) {
       this.selectedUser = user;
       this.chatActive = true;
       const newArray = this.conversation.map((obj: any) => {
@@ -60,9 +60,9 @@ export class ChatMovilComponent {
       });
       this.conversation = newArray;
       this.conversation = [...this.conversationAll].filter((x: Conversation | any) => {
-        if (x.idSession === this.selectedUser?.SessionID) {
+        if (x.idSession === this.selectedUser?.idSession) {
           for (let i = 0; i < this.conversationAll.length; i++) {
-            if (this.conversationAll[i].SessionID === this.selectedUser?.SessionID) {
+            if (this.conversationAll[i].SessionID === this.selectedUser?.idSession) {
               this.conversationAll[i].ReadMsg = true;
             }
           }
