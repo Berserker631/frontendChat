@@ -24,7 +24,7 @@ export class OpennedChatsComponent {
 
   openBubble(user: User) {
     this.selectedUser.emit(user);
-    this.messagesService.updateConversationPerUser(user);
+    // this.messagesService.updateConversationPerUser(user);
   }
 
 
@@ -41,21 +41,21 @@ export class OpennedChatsComponent {
     this.selectedUser.emit(user);
   }
 
-  unreadCounter() {
-    const newConversation = new Map();
-    for (const conversation of this.conversationAll) {
-      if (!conversation.ReadMsg) {
-        const idSession = conversation.SessionID;
-        if (!newConversation.has(idSession)) {
-          newConversation.set(idSession, 0);
-        }
-        newConversation.set(idSession, newConversation.get(idSession) + 1);
-      }
-    }
-    this.unreadMessage = Array.from(newConversation, ([idSession, messageCounter]) => ({
-      idSession,
-      messageCounter
-    }));
-    return this.unreadMessage;
-  }
+  // unreadCounter() {
+  //   const newConversation = new Map();
+  //   for (const conversation of this.conversationAll) {
+  //     if (!conversation.ReadMsg) {
+  //       const idSession = conversation.idSession;
+  //       if (!newConversation.has(idSession)) {
+  //         newConversation.set(idSession, 0);
+  //       }
+  //       newConversation.set(idSession, newConversation.get(idSession) + 1);
+  //     }
+  //   }
+  //   this.unreadMessage = Array.from(newConversation, ([idSession, messageCounter]) => ({
+  //     idSession,
+  //     messageCounter
+  //   }));
+  //   return this.unreadMessage;
+  // }
 }

@@ -16,6 +16,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { LoginComponent } from './login/login.component';
 import { BackgroundComponent } from './background/background.component';
 import { CookieService } from "ngx-cookie-service";
+import * as moment from 'moment';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { CookieService } from "ngx-cookie-service";
     EmojiMenuComponent,
     LoginComponent,
     BackgroundComponent
-  ],
+    ],
 
   imports: [
     HttpClientModule,

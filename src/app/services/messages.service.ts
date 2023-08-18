@@ -42,15 +42,15 @@ export class MessagesService {
     this.clickEventSubject.next();
   }
 
-  getConversation(Session: number) {
-    return this.http.post(`${this.API}/getConversation`, { Session: Session }, httpOptions)
+  getConversation(idSession: number) {
+    return this.http.post(`${this.API}/getConversation`, { idSession: idSession }, httpOptions)
   }
 
-  updateConversationPerUser(selectedUser: User) {
-    for (let i = 0; i < this.conversationAll.length; i++) {
-      if (selectedUser.idSession === this.conversationAll[i].SessionID) {
-        this.conversationAll[i].ReadMsg = true;
-      }
-    }
-  }
+  // updateConversationPerUser(selectedUser: User) {
+  //   for (let i = 0; i < this.conversationAll.length; i++) {
+  //     if (selectedUser.idSession === this.conversationAll[i].idSession) {
+  //       this.conversationAll[i].ReadMsg = true;
+  //     }
+  //   }
+  // }
 }

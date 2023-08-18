@@ -4,11 +4,11 @@
   </div>
   <div class="chat" id="chatContainer">
     <ul class="message-list" id="messages">
-      <li *ngFor="let message of conversation" [ngClass]="message.UserName == currentUser ?'message1': 'message2'">
-        <i class="fa-solid fa-reply" style="color: #c7c7c7;" (click)="replyTo(message.Message, message.UserName, message.MessageID)"></i>
-        <p class="msgText" *ngIf="message.IsAns != 0"><label class="answerMsg" id="">{{message.AnswerTo}}</label>{{message.Message}}</p>
-        <p *ngIf="message.IsAns === 0" class="msgText">{{message.Message}}</p>
-        <label class="TimeReceived">{{message.TimeReceived}}</label>
+      <li *ngFor="let message of conversation" [ngClass]="message.idUser == idUser ?'message1': 'message2'" (click)="showTime()">
+        <i *ngIf="message" class="fa-solid fa-reply" style="color: #c7c7c7;" (click)="replyTo(message.description, message.userName, message.idMessage)"></i>
+        <!-- <p class="msgText" *ngIf="message.IsAns != 0"><label class="answerMsg" id="">{{message.AnswerTo}}</label>{{message.idMessage}}</p> -->
+        <p class="msgText">{{message.description}}</p>
+        <label class="TimeReceived" [class.active]="flag">{{message.dateLog}}</label>
       </li>
       <div id="preview"></div>
     </ul>

@@ -10,7 +10,6 @@ import { Conversation } from 'src/interface/convesation';
 })
 
 export class SocketsService {
-  // socket = io("http://192.168.27.190:5000")
   socket = io("http://localhost:5000")
   currentID!: number;
   constructor( private cookieService: CookieService) {
@@ -46,8 +45,6 @@ export class SocketsService {
 
   joinRoomSocket(user: User) {
     this.socket.emit('join', user)
-    this.socket.on('get users', (users)=>{
-  })
   }
 
   leaveRoom(userId: number){

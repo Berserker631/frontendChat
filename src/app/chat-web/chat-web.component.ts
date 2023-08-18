@@ -48,7 +48,7 @@ export class ChatWebComponent {
     //get online users
     this.socketService.onlineUser().subscribe((data: any) => {
       this.listUser.forEach(user => {
-        if ( data.filter((x: any)=>  x.UserID == user.idUser).length>0) {
+        if ( data.filter((x: any)=>  x.idUser == user.idUser).length > 0) {
           user.status = true;
         }else{
           user.status = false;

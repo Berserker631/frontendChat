@@ -6,13 +6,15 @@
   grid-row-gap: 0px;
   height: 100%;
   transition: all ease-in-out .5s;
-
+  z-index: 1;
   &.active{
     grid-template-rows: 70px repeat(3, 1fr) 50px 1fr;
   }
 }
 
 .userChat {
+  display: flex;
+  align-items: center;
   width: 100%;
   grid-area: 1 / 1 / 2 / 2;
   // height: 50px;
@@ -122,6 +124,7 @@
     display: block;
     color: #a5a5a5;
     font-size: .8em;
+    padding-bottom:5px;
     font-family: Arial, Helvetica, sans-serif;
   }
 }
@@ -147,28 +150,38 @@
     font-size: large;
     font-family: Arial, Helvetica, sans-serif;
   }
-
 }
 
 .message-list {
   margin: 0;
   padding: 15px;
   list-style: none;
-
-  label {
+  .TimeReceived {
+    position: absolute;
+    z-index: -1;
     color: #cacaca;
     line-height: 28px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 10px;
     padding-left: 5px;
+    transform: translateX(-10px);
+    opacity: 1;
+
+    &.active{
+      transform: translateX(1px);
+      opacity: 1;
+    }
   }
+
 }
 
 .message1 {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   flex-direction: row-reverse;
-  margin: 5px;
+  margin-bottom: 3px;
+  cursor: default;
 
   p {
     display: block;
@@ -176,11 +189,11 @@
     word-break: break-all;
     width: max-content;
     max-width: 500px;
-    min-width: 50px;
+    min-width: 100px;
     background-color: #33BBA4;
     padding: 5px;
-    border-radius: 8px;
-    margin: 5px;
+    border-radius: 5px;
+    margin: 0px;
     font-size: 1.2em;
     font-family: Arial, Helvetica, sans-serif;
   }
@@ -200,18 +213,19 @@
 .message2 {
   display: flex;
   justify-content: flex-start;
-  margin: 5px;
+  margin-bottom: 3px;
+  cursor: default;
 
   p {
     color: #fff;
     word-break: break-all;
     width: max-content;
     max-width: 500px;
-    min-width: 50px;
+    min-width: 100px;
     background-color: #3385bb;
     padding: 5px;
-    border-radius: 8px;
-    margin: 0;
+    border-radius: 5px;
+    margin: 0px;
     font-size: 1.2em;
     font-family: Arial, Helvetica, sans-serif;
   }
@@ -243,6 +257,8 @@
 
 //replies messages
 .fa-solid.fa-reply{
+  // z-index: -1;
+  // position: absolute;
   display: flex;
   align-items: center;
   font-size: 15px;

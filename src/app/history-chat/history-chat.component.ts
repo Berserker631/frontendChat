@@ -20,17 +20,17 @@ export class HistoryChatComponent {
   @Input() conversation: Conversation[] = [];
   replyingTo: boolean = false;
   currentUser: string = '';
-  UserID: number;
-  MessageID!: number;
-  Answer!: string;
+  idUser: number;
+  idMessage!: number;
+  // Answer!: string;
 
   constructor(private messageService: MessagesService, private cookieService: CookieService, private socketsServices: SocketsService) {
-    this.currentUser = this.cookieService.get('sessionCookies');
-    this.UserID = parseInt(this.cookieService.get('LoginIDCookie'));
     const notification = document.getElementById("sound") as HTMLAudioElement;
+    this.currentUser = this.cookieService.get('sessionCookies');
+    this.idUser = parseInt(this.cookieService.get('LoginIDCookie'));
     this.socketsServices.getMessagesSocket().subscribe
       ((data) => {
-        if (this.selectedUser.Session === data.SessionID) {
+        if (this.selectedUser.idSession === data.idSession) {
           this.conversation.push(data)
           notification!.play()
         }
@@ -38,15 +38,13 @@ export class HistoryChatComponent {
   }
 
   ngOnInit() {
-    this.messageService.getMessages(this.UserID).subscribe((data: Conversation[] | any) => {
-      this.conversationAll = data;
-    })
-    this.typingUser();
+    // this.messageService.getMessages(this.idUser).subscribe((data: Conversation[] | any) => {
+    //   this.conversationAll = data;
+    // })
+    // this.typingUser();
   }
 
-  selectFile(e: any){
-
-  }
+  selectFile(e: any){ }
 
   ngOnChanges() {
     let replyAutor = document.getElementById('autor') as HTMLElement;
@@ -62,7 +60,7 @@ export class HistoryChatComponent {
   }
 
   loadConversation() {
-    this.messageService.getConversation(this.selectedUser.Session).subscribe((data: Conversation[] | any) => {
+    this.messageService.getConversation(this.selectedUser.idSession).subscribe((data: Conversation[] | any) => {
       this.conversation = data;
     })
     if (this.selectedUser && this.selectedUser != undefined && this.selectedUser != null) {
@@ -76,6 +74,12 @@ export class HistoryChatComponent {
 
   emojiPicker() {
     const container = document.getElementById('pickerContainer');
+  }
+
+  showTime(){
+    console.log(this.flag);
+
+    this.flag = !this.flag;
   }
 
   openFile() {
@@ -110,12 +114,8 @@ export class HistoryChatComponent {
     let replyAutor = document.getElementById('autor') as HTMLElement;
     let replyContent = document.getElementById('answer') as HTMLElement;
     let chatContainer = document.getElementById('chatContainer');
-    let date = new Date();
-    let time = date.getHours() + ':' + date.getMinutes();
     if (this.newMessageText.trim() != "") {
-
-      let newMessage: Conversation = { SessionID: this.selectedUser.Session, Message: this.newMessageText.trim(), TimeReceived: time, MessageID: 1,
-         UserName: this.currentUser, ReadMsg: false, UserID: this.UserID, TargetID: this.selectedUser.UserID, IsAns: this.replyingTo ? this.MessageID : 0, AnswerTo: this.Answer};
+      let newMessage: any = { idSession: this.selectedUser.idSession, description: this.newMessageText.trim(), idUser: this.idUser};
       this.messageService.sendMessage(newMessage).subscribe({
         next: (response: any) => {
           this.conversation.push(newMessage)
@@ -124,7 +124,6 @@ export class HistoryChatComponent {
           console.log(error);
         }
       });
-
       this.socketsServices.sendMessageSocket(newMessage)
       chatContainer?.scrollTo(0, document.body.scrollHeight)
       this.newMessageText = '';
@@ -135,12 +134,12 @@ export class HistoryChatComponent {
   }
 
   replyTo(message: string, autor: string, MessageID: number){
-    this.MessageID = MessageID;
+    this.idMessage = MessageID;
     let replyAutor = document.getElementById('autor') as HTMLElement;
     let replyContent = document.getElementById('answer') as HTMLElement;
     replyAutor.innerText = '';
     replyContent.innerText = '';
-    this.Answer = message;
+    // this.Answer = message;
     replyAutor.innerText = autor
     replyContent.innerText = message
     this.replyingTo = true;

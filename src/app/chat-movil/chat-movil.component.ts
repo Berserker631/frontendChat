@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { User } from 'src/interface/User';
-import { MessagesService } from '../services/messages.service';
 import { Conversation } from 'src/interface/convesation';
 import { UsersService } from '../services/users.service';
 import { LoginServiceService } from '../services/login-service.service';
@@ -24,7 +23,7 @@ export class ChatMovilComponent {
   currentSession: string = '';
   @Input() Users: User[] = [];
   currentID!: number;
-  constructor(private messagesService: MessagesService, private usersService: UsersService, private loginService: LoginServiceService, private cookieService: CookieService) { }
+  constructor(private usersService: UsersService, private loginService: LoginServiceService, private cookieService: CookieService) { }
   openModal() {
     this.showModal = true;
   }
@@ -62,8 +61,8 @@ export class ChatMovilComponent {
       this.conversation = [...this.conversationAll].filter((x: Conversation | any) => {
         if (x.idSession === this.selectedUser?.idSession) {
           for (let i = 0; i < this.conversationAll.length; i++) {
-            if (this.conversationAll[i].SessionID === this.selectedUser?.idSession) {
-              this.conversationAll[i].ReadMsg = true;
+            if (this.conversationAll[i].idSession === this.selectedUser?.idSession) {
+              // this.conversationAll[i].ReadMsg = true;
             }
           }
           return x;
